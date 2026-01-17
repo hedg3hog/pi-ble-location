@@ -1,0 +1,54 @@
+- name: Update etc
+  hosts: pi
+  tasks:
+    - name: Creates directory
+      ansible.builtin.file:
+        path: /home/rouven/app/
+        state: directory
+        owner: rouven
+        group: rouven
+        mode: "0774"
+    - name: Copy client python file
+      ansible.builtin.copy:
+        src: ../python-ble-tri/scanner_client.py
+        dest: /home/rouven/app/scanner_client.py
+        owner: rouven
+        group: rouven
+        mode: "0664"
+    - name: Copy models python file
+      ansible.builtin.copy:
+        src: ../python-ble-tri/models.py
+        dest: /home/rouven/app/models.py
+        owner: rouven
+        group: rouven
+        mode: "0664"
+    - name: Copy pyproject
+      ansible.builtin.copy:
+        src: ../python-ble-tri/pyproject.toml
+        dest: /home/rouven/app/pyproject.toml
+        owner: rouven
+        group: rouven
+        mode: "0664"
+    - name: Create service directory
+      ansible.builtin.file:
+        path: /home/rouven/.config/systemd/user/
+        state: directory
+        owner: rouven
+        group: rouven
+        mode: "0771"
+    - name: Copy service
+      ansible.builtin.copy:
+        src: ../python-ble-tri/blescanner.service
+        dest: /home/rouven/.config/systemd/user/blescanner.service
+        owner: rouven
+        group: rouven
+        mode: "0664"
+    - name: Reload user systemd daemon
+      ansible.builtin.systemd:
+        daemon_reload: true
+        scope: user
+    - name: Start user service
+      ansible.builtin.systemd:
+        name: blescanner.service
+        state: restarted
+        scope: user

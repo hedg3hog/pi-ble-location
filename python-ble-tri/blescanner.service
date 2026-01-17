@@ -1,0 +1,14 @@
+# ~/.config/systemd/user/myapp.service
+[Unit]
+Description=My Python App
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/rouven/app
+ExecStart=/home/rouven/.local/bin/uv run /home/rouven/app/scanner_client.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,6 @@
+auswertung/test1.ipynb
+.ansible/.lock
+python-ble-tri/__pycache__
+python-ble-tri/.python-version
+auswertung
+*.db

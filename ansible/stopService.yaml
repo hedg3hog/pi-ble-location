@@ -1,0 +1,13 @@
+- name: Update etc
+  hosts: pi
+  tasks:
+    - name: Disable user service
+      ansible.builtin.systemd:
+        name: blescanner.service
+        enabled: false
+        scope: user
+    - name: Start user service
+      ansible.builtin.systemd:
+        name: blescanner.service
+        state: stopped
+        scope: user

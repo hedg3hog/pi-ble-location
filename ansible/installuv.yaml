@@ -1,0 +1,5 @@
+- name: Install UV
+  hosts: pi
+  tasks:
+    - name: Install UV
+      ansible.builtin.shell: "curl -LsSf https://astral.sh/uv/install.sh | sh"
